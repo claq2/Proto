@@ -1,0 +1,16 @@
+import "google/protobuf/csharp_options.proto"; 
+
+option (google.protobuf.csharp_file_options).namespace = "Proto"; 
+
+option (google.protobuf.csharp_file_options).umbrella_classname = "JobConfigProtos"; 
+
+option optimize_for = SPEED;
+
+message GetJobConfigRequest {
+	optional string jobId = 1;
+	optional string userId = 2;
+}
+
+message GetJobConfigResponse {
+	optional string name = 1;
+}

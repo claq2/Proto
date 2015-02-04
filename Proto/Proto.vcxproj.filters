@@ -15,11 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="JobConfig.proto">
-      <Filter>Source Files</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="JobConfig.pb.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -31,5 +26,13 @@
     <ClInclude Include="JobConfig.pb.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="protos\JobConfigCS.proto">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="protos\JobConfig.proto">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

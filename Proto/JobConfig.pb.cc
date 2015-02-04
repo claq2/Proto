@@ -35,8 +35,9 @@ void protobuf_AssignDesc_JobConfig_2eproto() {
       "JobConfig.proto");
   GOOGLE_CHECK(file != NULL);
   GetJobConfigRequest_descriptor_ = file->message_type(0);
-  static const int GetJobConfigRequest_offsets_[1] = {
+  static const int GetJobConfigRequest_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GetJobConfigRequest, jobid_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GetJobConfigRequest, userid_),
   };
   GetJobConfigRequest_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -98,9 +99,9 @@ void protobuf_AddDesc_JobConfig_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\017JobConfig.proto\"$\n\023GetJobConfigRequest"
-    "\022\r\n\005jobId\030\001 \001(\t\"$\n\024GetJobConfigResponse\022"
-    "\014\n\004name\030\001 \001(\t", 93);
+    "\n\017JobConfig.proto\"4\n\023GetJobConfigRequest"
+    "\022\r\n\005jobId\030\001 \001(\t\022\016\n\006userId\030\002 \001(\t\"$\n\024GetJo"
+    "bConfigResponse\022\014\n\004name\030\001 \001(\t", 109);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "JobConfig.proto", &protobuf_RegisterTypes);
   GetJobConfigRequest::default_instance_ = new GetJobConfigRequest();
@@ -121,6 +122,7 @@ struct StaticDescriptorInitializer_JobConfig_2eproto {
 
 #ifndef _MSC_VER
 const int GetJobConfigRequest::kJobIdFieldNumber;
+const int GetJobConfigRequest::kUserIdFieldNumber;
 #endif  // !_MSC_VER
 
 GetJobConfigRequest::GetJobConfigRequest()
@@ -143,6 +145,7 @@ void GetJobConfigRequest::SharedCtor() {
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
   jobid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  userid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -154,6 +157,9 @@ GetJobConfigRequest::~GetJobConfigRequest() {
 void GetJobConfigRequest::SharedDtor() {
   if (jobid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     delete jobid_;
+  }
+  if (userid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete userid_;
   }
   if (this != default_instance_) {
   }
@@ -181,9 +187,16 @@ GetJobConfigRequest* GetJobConfigRequest::New() const {
 }
 
 void GetJobConfigRequest::Clear() {
-  if (has_jobid()) {
-    if (jobid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-      jobid_->clear();
+  if (_has_bits_[0 / 32] & 3) {
+    if (has_jobid()) {
+      if (jobid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        jobid_->clear();
+      }
+    }
+    if (has_userid()) {
+      if (userid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        userid_->clear();
+      }
     }
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
@@ -209,6 +222,23 @@ bool GetJobConfigRequest::MergePartialFromCodedStream(
             this->jobid().data(), this->jobid().length(),
             ::google::protobuf::internal::WireFormat::PARSE,
             "jobid");
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_userId;
+        break;
+      }
+
+      // optional string userId = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_userId:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_userid()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+            this->userid().data(), this->userid().length(),
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "userid");
         } else {
           goto handle_unusual;
         }
@@ -251,6 +281,16 @@ void GetJobConfigRequest::SerializeWithCachedSizes(
       1, this->jobid(), output);
   }
 
+  // optional string userId = 2;
+  if (has_userid()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->userid().data(), this->userid().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "userid");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      2, this->userid(), output);
+  }
+
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -272,6 +312,17 @@ void GetJobConfigRequest::SerializeWithCachedSizes(
         1, this->jobid(), target);
   }
 
+  // optional string userId = 2;
+  if (has_userid()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->userid().data(), this->userid().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "userid");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        2, this->userid(), target);
+  }
+
   if (!unknown_fields().empty()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
@@ -289,6 +340,13 @@ int GetJobConfigRequest::ByteSize() const {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
           this->jobid());
+    }
+
+    // optional string userId = 2;
+    if (has_userid()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->userid());
     }
 
   }
@@ -321,6 +379,9 @@ void GetJobConfigRequest::MergeFrom(const GetJobConfigRequest& from) {
     if (from.has_jobid()) {
       set_jobid(from.jobid());
     }
+    if (from.has_userid()) {
+      set_userid(from.userid());
+    }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
@@ -345,6 +406,7 @@ bool GetJobConfigRequest::IsInitialized() const {
 void GetJobConfigRequest::Swap(GetJobConfigRequest* other) {
   if (other != this) {
     std::swap(jobid_, other->jobid_);
+    std::swap(userid_, other->userid_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

@@ -46,8 +46,10 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\Users\James\Documents\GitHub\Proto\Proto\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\James\Documents\GitHub\Proto\Proto\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)include;$(ProjectDir);$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)lib;$(LibraryPath)</LibraryPath>
+    <CustomBuildAfterTargets>
+    </CustomBuildAfterTargets>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -80,16 +82,27 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>libprotobuf-lite.lib;libprotobuf.lib;libprotoc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <CustomBuildStep>
+      <Command>
+      </Command>
+    </CustomBuildStep>
+    <PostBuildEvent>
+      <Command>$(ProjectDir)protogen JobConfigCS.proto google\protobuf\csharp_options.proto google\protobuf\descriptor.proto --proto_path=$(ProjectDir)protos</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>$(ProjectDir)protoc --proto_path=.\protos --cpp_out=. .\protos\JobConfig.proto</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <None Include="JobConfig.proto" />
-  </ItemGroup>
   <ItemGroup>
     <ClCompile Include="JobConfig.pb.cc" />
     <ClCompile Include="Proto.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="JobConfig.pb.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="protos\JobConfig.proto" />
+    <None Include="protos\JobConfigCS.proto" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

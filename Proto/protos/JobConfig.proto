@@ -1,0 +1,8 @@
+message GetJobConfigRequest {
+	optional string jobId = 1;
+	optional string userId = 2;
+}
+
+message GetJobConfigResponse {
+	optional string name = 1;
+}

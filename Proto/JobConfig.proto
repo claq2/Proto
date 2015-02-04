@@ -1,7 +1,0 @@
-message GetJobConfigRequest {
-	optional string jobId = 1;
-}
-
-message GetJobConfigResponse {
-	optional string name = 1;
-}
