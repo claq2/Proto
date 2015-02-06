@@ -1,19 +1,34 @@
 #include <string>
 #include <iostream>
-#include <fstream>
+#include <vector>
+#include <boost/shared_ptr.hpp>
+#include <SimpleAmqpClient/SimpleAmqpClient.h>
+
 #include "JobConfig.pb.h"
+
 using namespace std;
+using namespace AmqpClient;
 
 int main()
 {
 	GetJobConfigRequest request;
-	fstream input("..\\request.bin", ios::in | ios::binary);
-	if (!input)
+	string body;
+	try
 	{
-		cout << "..\\request.bin not found." << endl;
-		return -1;
+		AmqpClient::Channel::ptr_t connection = AmqpClient::Channel::Create("10.51.3.43", 5672, "evault", "xxxxxx");
+		connection->DeclareQueue("jamesqueue", false, true, false);
+		connection->BindQueue("jamesqueue", "evault.to");
+		connection->BasicConsume("jamesqueue", "jamesqueue");
+		cout << "Waiting for message..." << endl;
+		Envelope::ptr_t envelope = connection->BasicConsumeMessage();
+		body = envelope->Message()->Body();
 	}
-	else if (!request.ParseFromIstream(&input))
+	catch (exception e)
+	{
+		cout << e.what() << endl;
+	}
+
+	if (!request.ParseFromString(body))
 	{
 		cerr << "Failed to parse request." << endl;
 		return -1;
@@ -21,3 +36,4 @@ int main()
 
 	std::cout << "Job ID " << request.jobid() << " User ID " << request.userid() << std::endl;
 }
+
